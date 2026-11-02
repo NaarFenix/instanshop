@@ -68,7 +68,8 @@ app.MapPost("/api/order", async ([FromForm] OrderRequest req, NpgsqlDataSource d
         string.IsNullOrWhiteSpace(req.Phone) || req.Phone.Length < 8 ||
         string.IsNullOrWhiteSpace(req.City) || string.IsNullOrWhiteSpace(req.Street))
     {
-        return Results.BadRequest("<p style='color:red;'>Please fill all required fields correctly.</p>");
+        // Changed to Results.Ok so HTMX displays it!
+        return Results.Ok("<p style='color:red; font-weight:bold;'>Please fill all required fields correctly.</p>");
     }
 
     using var conn = await db.OpenConnectionAsync();
@@ -78,14 +79,15 @@ app.MapPost("/api/order", async ([FromForm] OrderRequest req, NpgsqlDataSource d
             UPDATE products SET stock = stock - 1 WHERE id = 1 AND stock >= 1 RETURNING price
         )
         INSERT INTO orders (full_name, phone, city, street, address_extra, quantity, unit_price)
-        SELECT @FullName, @Phone, @City, @Street, @AddressExtra, 1, price FROM stock_update
+        SELECT @FullName, @Phone, @City, @Street, COALESCE(@AddressExtra, ''), 1, price FROM stock_update
         RETURNING id;";
 
     var orderId = await conn.QuerySingleOrDefaultAsync<long?>(sql, new { 
         req.FullName, req.Phone, req.City, req.Street, req.AddressExtra 
     });
 
-    if (orderId == null) return Results.BadRequest("<div style='text-align:center; padding: 20px;'><h2 style='color:#ff3b30; margin:0;'>Sold Out</h2><p style='color:#666;'>Someone else just bought the last one!</p></div>");
+    if (orderId == null) 
+        return Results.Ok("<div style='text-align:center; padding: 20px;'><h2 style='color:#ff3b30; margin:0;'>Sold Out</h2><p style='color:#666;'>Someone else just bought the last one!</p></div>");
 
     return Results.Ok("<div style='text-align:center;'><h2>Order Confirmed!</h2><p>We will contact you soon for delivery.</p></div>");
 }).DisableAntiforgery().RequireRateLimiting("orderLimit"); 
