@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الباك الكامل للعناية بالشعر | Curly Hair Pack</title>
+    <meta name="description" content="احصل على الباك الكامل: فرشاة فك التشابك، قبعة ساتان، مشط أفرو، ومدلك فروة الرأس.">
+    
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    
+    <style>
+        /* =========================================
+           DESIGN SYSTEM: CONCRETE GRAY THEME
+           ========================================= */
+        :root {
+            --bg-concrete: #D1D5DB;       /* Main gray background */
+            --bg-darker: #9CA3AF;         /* Secondary gray */
+            --bg-card: #F3F4F6;           /* Off-white card background */
+            
+            --text-main: #111827;         /* Almost black */
+            --text-secondary: #374151;    /* Dark concrete gray */
+            --text-on-dark: #F9FAFB;      /* White text on dark areas */
+            
+            --brand-primary: #4A3B32;     /* Deep leather/earth brown */
+            --brand-hover: #352922;
+            --border-color: #9CA3AF;
+            
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --radius: 8px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-concrete);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; display: block; }
+        h1, h2, h3 { color: var(--text-main); line-height: 1.2; }
+        p { color: var(--text-secondary); }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background-image: url('/img/satingirl.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.7);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+        .hero .eyebrow {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #E5E7EB;
+            margin-bottom: 0.5rem;
+        }
+        .hero h1 {
+            color: var(--text-on-dark);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+        .hero .lead {
+            color: #D1D5DB;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        /* =========================================
+           BUTTONS
+           ========================================= */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-size: 1.1rem;
+        }
+        .btn-primary {
+            background-color: var(--brand-primary);
+            color: var(--text-on-dark);
+        }
+        .btn-primary:hover { background-color: var(--brand-hover); }
+        .btn-block { display: block; width: 100%; }
+
+        /* =========================================
+           PRODUCTS SECTION
+           ========================================= */
+        .section {
+            padding: 5rem 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .pack-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+        .product-img-wrap {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-darker);
+        }
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-info { padding: 1.5rem; }
+        .product-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--brand-primary);
+        }
+        .product-info p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* =========================================
+           ORDER FORM SECTION
+           ========================================= */
+        .order-section {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .delivery-info {
+            background: var(--bg-concrete);
+            padding: 1.5rem;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        .price-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .price-row strong { color: var(--brand-primary); font-size: 1.8rem; }
+        .delivery-info p { color: var(--text-main); font-weight: 600; }
+        .delivery-info .note {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-top: 0.25rem;
+        }
+
+        .field { margin-bottom: 1.25rem; }
+        .field label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+        .field .optional {
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        .field input, .field textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: #FFFFFF;
+            color: var(--text-main);
+            transition: border-color 0.2s ease;
+        }
+        .field input::placeholder, .field textarea::placeholder {
+            color: #6B7280;
+        }
+        .field input:focus, .field textarea:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+        }
+
+        /* HTMX Loader Logic */
+        .loader { display: none; text-align: center; margin-top: 15px; color: var(--text-secondary); font-weight: bold; }
+        .htmx-request .loader { display: block; }
+        .htmx-request button[type="submit"] { display: none; }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 600px) {
+            .pack-grid { grid-template-columns: 1fr; }
+            .order-section { padding: 2rem 1.5rem; }
+            .product-img-wrap { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="eyebrow">مجموعة العناية بالشعر المجعد</p>
+            <h1>الباك الكامل للعناية بشعرك</h1>
+            <p class="lead">احصل على الأدوات الأربع الأساسية في باك واحد. عناية متكاملة لشعر أنعم وأكثر صحة.</p>
+            <a class="btn btn-primary" href="#order">اطلب الباك الآن</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="section">
+        <h2 class="section-title">محتويات الباك</h2>
+        
+        <!-- THE 4 PRODUCTS -->
+        <div class="pack-grid">
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="/img/brush.png" alt="Detangling Brush" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3>Detangling Brush</h3>
+                    <p>فرشاة فك التشابك: تسهل تمشيط الشعر بلطف دون ألم.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="/img/bonnet.png" alt="Satin Bonnet" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3>Satin Bonnet</h3>
+                    <p>قبعة ساتان: تحافظ على ترطيب الشعر وتقلل التطاير أثناء النوم.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="/img/afropick.png" alt="Afro Pick" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3>Afro Pick</h3>
+                    <p>مشط أفرو: يمنح شعرك الحجم والكثافة ويفك التشابك.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="/img/scalpmassager.png" alt="Scalp Massager" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3>Scalp Massager</h3>
+                    <p>مدلك فروة الرأس: ينشط الدورة الدموية وينظف الفروة بعمق.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORDER FORM (Matches your Program.cs exactly) -->
+        <section id="order" class="order-section">
+            <h2 class="section-title">إتمام الطلب</h2>
+            
+            <div class="delivery-info">
+                <div class="price-row">
+                    <span>ثمن الباك الكامل</span>
+                    <strong>90 درهم</strong>
+                </div>
+                <p>مع توصيل لجميع المدن</p>
+                <p class="note">يتم تحديد ثمن التوصيل من طرف شركة التوصيل</p>
+            </div>
+
+            <!-- The ID "checkout-form" is crucial because Program.cs targets it -->
+            <div id="checkout-form">
+                <form hx-post="/api/order" hx-target="#checkout-form" hx-swap="innerHTML">
+                    
+                    <div class="field">
+                        <label for="fullName">الاسم الكامل</label>
+                        <input id="fullName" name="fullName" type="text" placeholder="أدخل اسمك الكامل" required minlength="2" maxlength="120">
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">رقم الهاتف</label>
+                        <input id="phone" name="phone" type="tel" dir="ltr" placeholder="06 12 34 56 78" required minlength="8" maxlength="20">
+                    </div>
+
+                    <div class="field">
+                        <label for="city">المدينة</label>
+                        <input id="city" name="city" type="text" placeholder="مثال: الدار البيضاء" required maxlength="80">
+                    </div>
+
+                    <div class="field">
+                        <label for="street">الشارع</label>
+                        <input id="street" name="street" type="text" placeholder="أدخل عنوان الشارع" required maxlength="200">
+                    </div>
+
+                    <div class="field">
+                        <label for="addressExtra">معلومات إضافية للتوصيل <span class="optional">(اختياري)</span></label>
+                        <input id="addressExtra" name="addressExtra" type="text" placeholder="أي تفاصيل تساعد في التوصيل" maxlength="500">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">اطلب الباك الآن</button>
+                    <div class="loader">جاري معالجة الطلب...</div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

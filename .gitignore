@@ -1,0 +1,14 @@
+# Build outputs
+bin/
+obj/
+out/
+publish/
+
+# Secrets
+appsettings.json
+appsettings.Development.json
+appsettings.Local.json
+
+# OS files
+.DS_Store
+Thumbs.db
