@@ -14,20 +14,20 @@
            DESIGN SYSTEM: CONCRETE GRAY THEME
            ========================================= */
         :root {
-            --bg-concrete: #D1D5DB;       /* Main gray background */
-            --bg-darker: #9CA3AF;         /* Secondary gray */
-            --bg-card: #F3F4F6;           /* Off-white card background */
+            --bg-concrete: #D1D5DB;       
+            --bg-darker: #9CA3AF;         
+            --bg-card: #F9FAFB;           
             
-            --text-main: #111827;         /* Almost black */
-            --text-secondary: #374151;    /* Dark concrete gray */
-            --text-on-dark: #F9FAFB;      /* White text on dark areas */
+            --text-main: #111827;         
+            --text-secondary: #374151;    
+            --text-on-dark: #F9FAFB;      
             
-            --brand-primary: #4A3B32;     /* Deep leather/earth brown */
+            --brand-primary: #4A3B32;     
             --brand-hover: #352922;
-            --border-color: #9CA3AF;
+            --border-color: #E5E7EB;
             
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --radius: 8px;
+            --radius: 12px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,57 +45,86 @@
         p { color: var(--text-secondary); }
 
         /* =========================================
-           HERO SECTION
+           HERO SECTION (OPTIMIZED FOR MOBILE)
            ========================================= */
         .hero {
-            position: relative;
-            min-height: 80vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            background-image: url('/img/satingirl.webp');
-            background-size: cover;
-            background-position: center;
+            flex-direction: column;
+            background-color: var(--bg-card);
         }
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(17, 24, 39, 0.7);
-            z-index: 1;
-        }
-        .hero-content {
+        
+        .hero-image {
+            width: 100%;
+            aspect-ratio: 4 / 5; /* Keeps the image nicely proportioned on phones */
+            max-height: 60vh;
             position: relative;
-            z-index: 2;
-            max-width: 650px;
+            overflow: hidden;
         }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%; /* Focuses on the face */
+        }
+
+        .hero-content {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .hero .eyebrow {
             font-size: 0.875rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: #E5E7EB;
+            color: var(--brand-primary);
             margin-bottom: 0.5rem;
         }
         .hero h1 {
-            color: var(--text-on-dark);
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--text-main);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 1rem;
         }
         .hero .lead {
-            color: #D1D5DB;
-            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
             margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        /* Desktop Split View */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                align-items: stretch;
+                min-height: 85vh;
+            }
+            .hero-image {
+                width: 50%;
+                aspect-ratio: auto;
+                max-height: none;
+            }
+            .hero-content {
+                width: 50%;
+                padding: 4rem;
+                text-align: right;
+                align-items: flex-start;
+                justify-content: center;
+            }
         }
 
         /* =========================================
-           BUTTONS
+           BUTTONS & TOUCH TARGETS
            ========================================= */
         .btn {
             display: inline-block;
             padding: 1rem 2rem;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 700;
             text-decoration: none;
             text-align: center;
@@ -103,53 +132,79 @@
             transition: all 0.2s ease;
             border: none;
             font-size: 1.1rem;
+            width: 100%; /* Full width on mobile for easier tapping */
+            max-width: 300px;
+        }
+        @media (min-width: 768px) {
+            .btn { width: auto; }
         }
         .btn-primary {
             background-color: var(--brand-primary);
             color: var(--text-on-dark);
         }
         .btn-primary:hover { background-color: var(--brand-hover); }
-        .btn-block { display: block; width: 100%; }
+        .btn-block { width: 100%; max-width: 100%; }
 
         /* =========================================
-           PRODUCTS SECTION
+           PRODUCTS SECTION (AUTO-RESPONSIVE GRID)
            ========================================= */
         .section {
-            padding: 5rem 1.5rem;
-            max-width: 900px;
+            padding: 4rem 1rem;
+            max-width: 1000px;
             margin: 0 auto;
         }
         .section-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
+        
+        /* This single line replaces all media queries for the grid! */
         .pack-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 4rem;
         }
+
         .product-card {
             background: var(--bg-card);
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
         }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
         .product-img-wrap {
             width: 100%;
-            height: 200px;
-            background: var(--bg-darker);
+            height: 280px; /* Reduced height on mobile to save scrolling */
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
         }
+        @media (min-width: 768px) {
+            .product-img-wrap { height: 350px; padding: 2rem; }
+        }
+        
         .product-img-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
-        .product-info { padding: 1.5rem; }
+
+        .product-info { 
+            padding: 1.5rem; 
+            text-align: center;
+        }
         .product-info h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
@@ -161,21 +216,25 @@
         }
 
         /* =========================================
-           ORDER FORM SECTION
+           ORDER FORM SECTION (TOUCH FRIENDLY)
            ========================================= */
         .order-section {
             background: var(--bg-card);
-            padding: 3rem;
+            padding: 2rem 1.5rem;
             border-radius: var(--radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border-color);
             max-width: 600px;
             margin: 0 auto;
         }
+        @media (min-width: 768px) {
+            .order-section { padding: 3rem; }
+        }
+
         .delivery-info {
             background: var(--bg-concrete);
             padding: 1.5rem;
-            border-radius: 4px;
+            border-radius: 6px;
             text-align: center;
             margin-bottom: 2rem;
             border: 1px solid var(--border-color);
@@ -197,7 +256,7 @@
             margin-top: 0.25rem;
         }
 
-        .field { margin-bottom: 1.25rem; }
+        .field { margin-bottom: 1.25rem; text-align: right; }
         .field label {
             display: block;
             font-weight: 700;
@@ -208,45 +267,38 @@
             font-weight: 400;
             color: var(--text-secondary);
         }
+        
+        /* Font size 16px+ prevents iOS auto-zoom */
         .field input, .field textarea {
             width: 100%;
             padding: 1rem;
             border: 2px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 6px;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 16px; 
             background: #FFFFFF;
             color: var(--text-main);
             transition: border-color 0.2s ease;
-        }
-        .field input::placeholder, .field textarea::placeholder {
-            color: #6B7280;
         }
         .field input:focus, .field textarea:focus {
             outline: none;
             border-color: var(--brand-primary);
         }
+        .field input::placeholder { color: #9CA3AF; }
 
         /* HTMX Loader Logic */
         .loader { display: none; text-align: center; margin-top: 15px; color: var(--text-secondary); font-weight: bold; }
         .htmx-request .loader { display: block; }
         .htmx-request button[type="submit"] { display: none; }
-
-        /* =========================================
-           RESPONSIVE
-           ========================================= */
-        @media (max-width: 600px) {
-            .pack-grid { grid-template-columns: 1fr; }
-            .order-section { padding: 2rem 1.5rem; }
-            .product-img-wrap { height: 250px; }
-        }
     </style>
 </head>
 <body>
 
     <!-- HERO -->
     <header class="hero">
-        <div class="hero-overlay"></div>
+        <div class="hero-image">
+            <img src="/img/satingirl.webp" alt="Satin Girl">
+        </div>
         <div class="hero-content">
             <p class="eyebrow">مجموعة العناية بالشعر المجعد</p>
             <h1>الباك الكامل للعناية بشعرك</h1>
@@ -259,7 +311,7 @@
     <main class="section">
         <h2 class="section-title">محتويات الباك</h2>
         
-        <!-- THE 4 PRODUCTS -->
+        <!-- PRODUCTS (Auto-fit grid) -->
         <div class="pack-grid">
             <div class="product-card">
                 <div class="product-img-wrap">
@@ -302,7 +354,7 @@
             </div>
         </div>
 
-        <!-- ORDER FORM (Matches your Program.cs exactly) -->
+        <!-- ORDER FORM -->
         <section id="order" class="order-section">
             <h2 class="section-title">إتمام الطلب</h2>
             
@@ -315,7 +367,6 @@
                 <p class="note">يتم تحديد ثمن التوصيل من طرف شركة التوصيل</p>
             </div>
 
-            <!-- The ID "checkout-form" is crucial because Program.cs targets it -->
             <div id="checkout-form">
                 <form hx-post="/api/order" hx-target="#checkout-form" hx-swap="innerHTML">
                     
@@ -326,7 +377,7 @@
 
                     <div class="field">
                         <label for="phone">رقم الهاتف</label>
-                        <input id="phone" name="phone" type="tel" dir="ltr" placeholder="06 12 34 56 78" required minlength="8" maxlength="20">
+                        <input id="phone" name="phone" type="tel" inputmode="tel" dir="ltr" placeholder="06 12 34 56 78" required minlength="8" maxlength="20">
                     </div>
 
                     <div class="field">
